@@ -2,16 +2,22 @@
   display: flex;
   flex-direction: column;
 }
+.loginPage .loginForm {
+}
 .loginForm {
   display: flex;
   flex-direction: column;
+  height: fit-content;
   background-color: #fff;
-  padding: 1rem;
+  align-content: center;
+  padding: 2rem;
 }
-.loginForm > h2 {
+.loginForm > h2,
+h4 {
   text-align: center;
 }
-.BtnLogin {
+.ant-form-item-control-input-content {
   display: flex;
+  justify-content: center;
   margin: 0 auto;
 }

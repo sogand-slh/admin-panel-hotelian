@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, message } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Lottie from "react-lottie";
 import animationData from "../../lotties/travel-login.json";
+import { GoogleLogin } from "react-google-login";
 //Styles
 import "./Login.css";
 
@@ -25,6 +26,9 @@ const defaultOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+const clientId =
+  "850625159065-kme3qjnbn7j1fnriccsofrilp23mb7uf.apps.googleusercontent.com";
+
 const Login = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -46,7 +50,13 @@ const Login = () => {
       message.error("your request is denied!");
     }
   };
-
+  //OAuth Google
+  const onSuccess = (res) => {
+    console.log("[Login success] res:", res);
+  };
+  const onFailure = (res) => {
+    console.log("[Login failed] res:", res);
+  };
   return (
     <div
       className="loginPage"
@@ -91,12 +101,20 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="BtnLogin">
+            <Button type="primary" htmlType="submit">
               Log in
             </Button>
           </Form.Item>
         </Form>
         <h4>Or</h4>
+        <GoogleLogin
+          clientId={clientId}
+          buttonText={`Login By Google`}
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          cookiePolicy={"single_host_origin"}
+          isSignedIn={true}
+        />
       </div>
       <div>
         <Lottie options={defaultOptions} height={400} width={400} />
