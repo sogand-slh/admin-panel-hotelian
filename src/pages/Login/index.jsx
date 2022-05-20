@@ -3,6 +3,10 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import Lottie from "react-lottie";
+import animationData from "../../lotties/travel-login.json";
+//Styles
+import "./Login.css";
 
 async function loginUser(credentials) {
   return fetch("http://front-api-test.wsafar.com/users/login", {
@@ -13,7 +17,14 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials),
   }).then((data) => data.json());
 }
-
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: animationData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 const Login = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -37,13 +48,20 @@ const Login = () => {
   };
 
   return (
-    <div className="loginPage">
-      <div>
+    <div
+      className="loginPage"
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}>
+      <div className="loginForm">
+        <h2>Explore World</h2>
         <Form
           name="normal_login"
           form={form}
           onFinish={handleSubmit}
-          layout="inline">
+          layout="horizontal">
           <Form.Item
             name="username"
             rules={[
@@ -73,17 +91,15 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button">
+            <Button type="primary" htmlType="submit" className="BtnLogin">
               Log in
             </Button>
           </Form.Item>
         </Form>
+        <h4>Or</h4>
       </div>
       <div>
-        <Button>Khafe</Button>
+        <Lottie options={defaultOptions} height={400} width={400} />
       </div>
     </div>
   );

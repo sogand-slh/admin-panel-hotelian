@@ -1,3 +1,17 @@
 .loginPage {
   display: flex;
+  flex-direction: column;
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 1rem;
+}
+.loginForm > h2 {
+  text-align: center;
+}
+.BtnLogin {
+  display: flex;
+  margin: 0 auto;
 }
