@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  margin: 5px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.rightSide_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+  align-items: center;
+}
+.rightSide_header > span {
+  padding: 10px;
+}
