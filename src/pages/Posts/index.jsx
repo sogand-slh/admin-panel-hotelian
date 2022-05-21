@@ -49,8 +49,9 @@ const Posts = () => {
       fieldName: fieldName,
       searchValue: value,
     });
-    fetchData("search", searchItem);
+    Object.keys(searchItem).length !== 0 && fetchData("search", searchItem);
   };
+
   const columns = [
     {
       title: "Title",

@@ -34,6 +34,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     const { username, password } = form.getFieldValue();
+
     const response = await loginUser({
       username,
       password,
@@ -42,6 +43,8 @@ const Login = () => {
       const time = moment(new Date().getTime()).format("MMMM Do YYYY, h:mm a");
       message.success("your sign in operation is successful.").then((value) => {
         localStorage.setItem("accessToken", response.result.access_token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
         localStorage.setItem("time", time);
         navigate("/post");
       });

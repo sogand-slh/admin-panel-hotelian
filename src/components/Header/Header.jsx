@@ -1,4 +1,4 @@
-import { Button, Modal, PageHeader, Tooltip } from "antd";
+import { Button, message, Modal, PageHeader, Tooltip } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,20 +7,42 @@ import "./Header.css";
 
 const { confirm } = Modal;
 
+const token = window.localStorage.getItem("accessToken");
+async function logoutUser(credentials) {
+  return fetch(
+    `https://front-api-test.wsafar.com/users/logout?access-token=${token}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
+}
+
 const Header = () => {
   const navigate = useNavigate();
   //get data from local storage
-  const token = window.localStorage.getItem("accessToken");
+
+  const username = window.localStorage.getItem("username");
+  const password = window.localStorage.getItem("password");
   const loginTime = window.localStorage.getItem("time");
 
-  const handleLogout = () => {
-    window.localStorage.removeItem("accessToken");
-    confirm({
-      title: "Are you sure to logout?",
-      onOk() {
-        navigate("/login");
-      },
+  const handleLogout = async () => {
+    const response = await logoutUser({
+      username,
+      password,
     });
+    if (response.ok === true) {
+      confirm({
+        title: "Are you sure to logout?",
+        onOk() {
+          window.localStorage.removeItem("accessToken");
+          navigate("/login");
+        },
+      });
+    }
   };
   return (
     <div className="header">
