@@ -27,7 +27,7 @@ const Posts = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [posts, setPosts] = useState([]);
-  const [searchItem, setSearch] = useState([]);
+
   const token = window.localStorage.getItem("accessToken");
   const fetchData = async (type, search) => {
     const response = await getPosts(token, type, search);
@@ -45,11 +45,12 @@ const Posts = () => {
     const { value, field } = form.getFieldValue();
     const fieldName = fieldValue?.filter((item) => item.id === +field)?.[0]
       ?.title;
-    setSearch({
+
+    const search = {
       fieldName: fieldName,
       searchValue: value,
-    });
-    Object.keys(searchItem).length !== 0 && fetchData("search", searchItem);
+    };
+    fetchData("search", search);
   };
 
   const columns = [
